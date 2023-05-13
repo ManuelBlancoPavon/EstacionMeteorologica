@@ -3,7 +3,7 @@
 Esta estación meteorológica sirve para medir la temperatura, humedad, presión, luxes, índice UV, velocidad del viento, dirección del viento y precipitaciones.
 ![Estación](./Imagenes/Estacion.jpeg)
 ## Pagina Web donde ver los datos del tiempo
-> En contrucción.
+> En construcción.
 ## Materiales
 - 1x Raspberry Pi Pico W
 - 1x BME280
@@ -23,7 +23,7 @@ Esta estación meteorológica sirve para medir la temperatura, humedad, presión
 ![PrefBoard](./Imagenes/PrefBoard.png)
 ## Programación
 ### Raspberry Pi Pico W
-1. Mante el botón BOOT presionado y conecta la Raspberry Pi Pico W al ordenador.
+1. Mantén el botón BOOT presionado y conecta la Raspberry Pi Pico W al ordenador.
 2. Descargar CircuitPython 8.x [aquí](https://circuitpython.org/board/raspberry_pi_pico_w/).
 3. Arrastrar el archivo .u2f a la carpeta de la Raspberry Pi Pico W.
 4. Descargar el bundle versión 8.x [aquí](https://circuitpython.org/libraries).
@@ -46,7 +46,7 @@ Esta estación meteorológica sirve para medir la temperatura, humedad, presión
 #### Poniendo en marcha la base de datos
 1. Descargue e instale mariadb [aquí](https://mariadb.org/download/).
 2. Ejecute script.sql en la base de datos.
-#### Almacenado datos en la base de datos
+#### Almacenando datos en la base de datos
 1. Instale los siguientes módulos de Python:
 - mysql-connector-python
 - requests
@@ -55,14 +55,14 @@ Esta estación meteorológica sirve para medir la temperatura, humedad, presión
 - numpy
 - matplotlib
 - Flask-Plots
-2. Descargue el archivo store.py y ejecútelo configurando cada cuanto tiempo quiere almacenar los datos.
+2. Descargue el archivo store.py y ejecútelo configurando cada cuánto tiempo quiere almacenar los datos.
 3. Lo tendrá que hacer que se ejecute en segundo plano.
-#### Pagina web
+#### Página Web
 1. Descargue la carpeta app y ejecute main.py.
-2. Recuerda que en host tiene que poner la ip de su ordenador.
+2. Recuerde que en host tiene que poner la ip de su ordenador.
 ![Web](./Imagenes/Web.png)
 
 ## Montaje
-1. Imprime una Stevenson screen para que los sensores no estén expuestos al sol y solo midan la temperatura del aire. [Aquí](https://www.thingiverse.com/thing:1718334/files) aunque os recomiendo que el sensor grid lo imprimáis un poco más pequeño para que quepa. Luego hacer un agujero en la parte de abajo para llevar los cables. Podéis poner los sensores en el sensor grid y os quedaría tal que así:
+1. Imprime una Stevenson screen para que los sensores no estén expuestos al sol y solo midan la temperatura del aire aunque os recomiendo que el sensor grid lo imprimáis un poco más pequeño para que quepa. Luego hacer un agujero en la parte de abajo para llevar los cables [Descargar](https://www.thingiverse.com/thing:1718334/files). Podéis poner los sensores en el sensor grid y os quedaría tal que así:
 ![SensorGrid](./Imagenes/SensorGrid.jpeg)
-Y para el LTR390 tenéis esta carcasa [aquí](https://www.thingiverse.com/thing:5388692). Aunque yo he hecho una modificación para que sea un poco más amplia y entre mejor lo tenéis en la carpeta impresora 3D. Y luego lo podéis poner en la parte de arriba de la Stevenson screen con silicona caliente y hacer un agujero en la parte de abajo para llevar los cables.
+Y para el LTR390 tenéis esta carcasa [Descargar](https://www.thingiverse.com/thing:5388692). Aunque yo he hecho una modificación para que sea un poco más amplia y entre mejor lo tenéis en la carpeta impresora 3D. Y luego lo podéis poner en la parte de arriba de la Stevenson screen con silicona caliente y hacer un agujero en la parte de abajo para llevar los cables.
