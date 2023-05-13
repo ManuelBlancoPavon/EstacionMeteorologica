@@ -100,4 +100,4 @@ def bar():
 def favicon():
     return url_for('static', filename='image/favicon.ico')
 if __name__ == "__main__":
-    app.run(port=5000, debug=True, host='192.168.1.35')
+    app.run(port=5000, debug=True, host='192.168.1.38')
