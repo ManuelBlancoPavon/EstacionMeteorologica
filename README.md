@@ -1,4 +1,4 @@
-# Estación Meteorológica
+# Para sanarlo hay que estudiarlo [Estación meteorológica]
 ## Presentación
 Esta estación meteorológica sirve para medir la temperatura, humedad, presión, luxes, índice UV, velocidad del viento, dirección del viento y precipitaciones.
 ![Estación](./Imagenes/Estacion.jpeg)
