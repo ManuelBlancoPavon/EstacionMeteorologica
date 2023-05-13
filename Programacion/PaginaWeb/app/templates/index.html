@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cuadrados de Temperaturas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Buscar por fecha especifica</h1>
+        <form method="POST" action="/">
+            <label>Día </label>
+            <input type="text" name="dia" id="btnDia">
+            <br>
+            <label>Mes</label>
+            <input type="text" name="mes" id="btnMes">
+            <br>
+            <label>Año</label>
+            <input type="text" name="ano" id="btnAno">
+            <br>
+            <input type="submit" value="Enviar">
+        </form>
+    </div> 
+    <div class="container">
+        <h1>El tiempo en Villaviciosa de Odón</h1>
+    </div>
+    <div class="container d-flex flex-wrap">
+        {% for fecha, tempertaura, humedad, presion, velocidad, direccion, precipitacion, uv, ppm, lux in zip(fechas, temperaturas, humedades, presiones, velocidades, direcciones, precipitaciones, uvs, ppms, luxes) %}
+        <div class="">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ fecha }}</h5>
+                    <p class="card-text">Temperatura: {{ tempertaura }}ºC</p>
+                    <p class="card-text">Humedad: {{ humedad }}%</p>
+                    <p class="card-text">Presión: {{ presion }}hPa</p>
+                    <p class="card-text">Velocidad del viento: {{ velocidad }}km/h</p>
+                    <p class="card-text">Dirección del viento: {{ direccion }}º</p>
+                    <p class="card-text">Precipitaciones: {{ precipitacion }}mm</p>
+                    <p class="card-text">Índice UV: {{ uv }}</p>
+                    <p class="card-text">Calidad del aire: {{ ppm }}ppm</p>
+                    <p class="card-text">Luxes: {{ lux }}lux</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
