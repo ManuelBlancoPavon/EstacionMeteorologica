@@ -66,3 +66,5 @@ Esta estación meteorológica sirve para medir la temperatura, humedad, presión
 1. Imprime una Stevenson screen para que los sensores no estén expuestos al sol y solo midan la temperatura del aire aunque os recomiendo que el sensor grid lo imprimáis un poco más pequeño para que quepa. Luego hacer un agujero en la parte de abajo para llevar los cables [Descargar](https://www.thingiverse.com/thing:1718334/files). Podéis poner los sensores en el sensor grid y os quedaría tal que así:
 ![SensorGrid](./Imagenes/SensorGrid.jpeg)
 Y para el LTR390 tenéis esta carcasa [Descargar](https://www.thingiverse.com/thing:5388692). Aunque yo he hecho una modificación para que sea un poco más amplia y entre mejor lo tenéis en la carpeta impresora 3D. Y luego lo podéis poner en la parte de arriba de la Stevenson screen con silicona caliente y hacer un agujero en la parte de abajo para llevar los cables.
+## Agradecimientos
+Muchas gracias a mi familia, mis amigos y profesores por el apoyo que me han dado para hacer este proyecto. 
