@@ -7,8 +7,9 @@ CREATE TABLE mediciones (
   temperatura FLOAT(5,2),
   humedad FLOAT(5,2),
   presion FLOAT(6,2),
-  precipitacion FLOAT(5,2),
+  precipitaciones FLOAT(5,2),
   velocidad FLOAT(5,2),
+  direccion FLOAT(5,2),
   uvi FLOAT(4,2),
   lux FLOAT(8,2),
   ppm FLOAT(6,2)
