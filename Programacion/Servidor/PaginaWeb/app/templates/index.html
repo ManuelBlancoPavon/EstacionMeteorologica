@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <title>Cuadrados de Temperaturas</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=0.70">
 </head>
 <body>
     <div class="container">
@@ -18,13 +21,28 @@
             <label>Año</label>
             <input type="text" name="ano" id="btnAno">
             <br>
-            <input type="submit" value="Enviar">
+            <br>
+            <h3>Busqueda avanzada</h3>
+            <label>Hora (Formato 23:59)</label>
+            <br>
+            <label>Desde</label>
+            <input type="text" name="horax" id="btnHorax">
+            <br>
+            <label>Hasta</label>
+            <input type="text" name="horay" id="btnHoray">
+            <br>
+            <br>
+            <input type="submit" class="button2" value="Buscar">
+            <br>
+            <br>
+            <!-- <a href="./graficos" class="button">Cambiar a gráficos</a> -->
         </form>
+        
     </div> 
     <div class="container">
-        <h1>El tiempo en Villaviciosa de Odón</h1>
+        <h1>El tiempo en Villaviciosa de Odón {{dia}} desde {{horax}} hasta {{horay}}</h1>
     </div>
-    <div class="container d-flex flex-wrap">
+    <div class="container-fluid d-flex flex-wrap">
         {% for fecha, tempertaura, humedad, presion, velocidad, direccion, precipitacion, uv, ppm, lux in zip(fechas, temperaturas, humedades, presiones, velocidades, direcciones, precipitaciones, uvs, ppms, luxes) %}
         <div class="">
             <div class="card">
