@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <title>Gráficos</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body>
+    <div class="container">
+        <form method="POST" action="/graficos">
+            <h2>Buscar por fecha especifica</h1>
+            <h5>Desde</h5>
+            <label>Día </label>
+            <input type="text" name="desdeDia" id="btnDesdeDia">
+            <br>
+            <label>Mes</label>
+            <input type="text" name="desdeMes" id="btnDesdeMes">
+            <br>
+            <label>Año</label>
+            <input type="text" name="desdeAno" id="btnDesdeAno">
+            <br>
+            <h5>Hasta</h5>
+            <label>Día </label>
+            <input type="text" name="hastaDia" id="btnHastaDia">
+            <br>
+            <label>Mes</label>
+            <input type="text" name="hastaMes" id="btnHastaMes">
+            <br>
+            <label>Año</label>
+            <input type="text" name="hastaAno" id="btnHastaAno">
+            <br>
+            <br>
+            <input type="submit" class="button2" value="Buscar">
+            <br>
+            <br>
+            
+            <a href="./" class="button">Cambiar a cuadrados</a>
+        </form>
+    </div>
+    <div class="container">
+        <h1>El tiempo desde {{diaMax}} hasta {{diaMin}}</h1>
+    </div>
+   <div>
+       {{ temperaturas | safe }}
+   </div>
+   <div>
+       {{ humedades | safe }}
+   </div>
+   <div>
+       {{ presiones | safe }}
+    </div>
+    <div>
+       {{ velocidades | safe }}
+    </div>
+    <div>
+        {{ direcciones | safe }}
+    </div>
+    <div>
+        {{ precipitaciones | safe }}
+    </div>
+    <div>
+        {{ uvs | safe }}
+    </div>
+    <div>
+        {{ ppms | safe }}
+    </div>
+    <div>
+        {{ luxes | safe }}
+    </div>
+     
+</body>
+</html>
