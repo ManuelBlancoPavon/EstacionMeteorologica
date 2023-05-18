@@ -43,6 +43,19 @@
         <h1>El tiempo el {{dia}} desde {{horax}} hasta {{horay}}</h1>
     </div>
     <div class="container-fluid d-flex flex-wrap">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Resumen del día</h5>
+                <p class="card-text">Temperatura maxima: {{tempMax}}ºC</p>
+                <p class="card-text">Temperatura minima: {{tempMin}}ºC</p>
+                <p class="card-text">Humedad maxima: {{humMax}}%</p>
+                <p class="card-text">Humedad minima: {{humMin}}%</p>
+                <p class="card-text">Presion maxima: {{presMax}}hPa</p>
+                <p class="card-text">Presion minima: {{presMin}}hPa</p>
+                <p class="card-text">Total precipitaciones: {{mmTotal}}mm</p>
+
+            </div>
+        </div>
         {% for fecha, tempertaura, humedad, presion, velocidad, direccion, precipitacion, uv, ppm, lux in zip(fechas, temperaturas, humedades, presiones, velocidades, direcciones, precipitaciones, uvs, ppms, luxes) %}
         <div class="">
             <div class="card">

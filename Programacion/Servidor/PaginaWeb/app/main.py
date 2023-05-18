@@ -103,10 +103,27 @@ def bar():
     horaInicio = horaInicio[:-3]
     horaFin = horaFin[:-3]
     diaBuscarFormateado = diaBuscar.strftime("%d-%m-%Y")
+    
+    # Calcular maximos y minimos
+    tempMax = max(temperatura)
+    tempMin = min(temperatura)
+    humMax = max(humedad)
+    humMin = min(humedad)
+    presMax = max(presion)
+    presMin = min(presion)
+    velMax = max(velocidad)
+    velMin = min(velocidad)
+    velMedia = round(sum(velocidad)/len(velocidad), 2)
+    uvMax = max(uv)
+    uvMin = min(uv)
+    mmTotal = round(sum(precipitaciones), 2)
 
     env = Environment()
     env.globals.update(zip=zip)
-    return render_template("index.html", temperaturas=temperatura,uvs=uv,luxes=lux,ppms=ppm,direcciones=direccion, humedades=humedad, presiones=presion, precipitaciones=precipitaciones, velocidades=velocidad,fechas=fechaFormateada,dia=diaBuscarFormateado,horax=horaInicio,horay=horaFin, zip=zip)
+    return render_template("index.html", tempMax=tempMax, tempMin=tempMin, humMax=humMax, humMin=humMin, presMax=presMax,
+                           presMin=presMin, mmTotal=mmTotal, temperaturas=temperatura,uvs=uv,luxes=lux,ppms=ppm,direcciones=direccion,
+                           humedades=humedad, presiones=presion, precipitaciones=precipitaciones, velocidades=velocidad,fechas=fechaFormateada,
+                           dia=diaBuscarFormateado,horax=horaInicio,horay=horaFin, zip=zip)
 
 @app.route('/graficos', methods=['GET', 'POST'])
 def graficos():
@@ -225,7 +242,7 @@ def graficos():
     figDirecciones = go.Figure(data=[tablaDirecciones], layout=go.Layout(title="Gráfico de direcciónes del viento (º)"))
     figPrecipitaciones = go.Figure(data=[tablaPrecipitaciones], layout=go.Layout(title="Gráfico de precipitaciones (mm)"))
     figUVS = go.Figure(data=[tablaUVS], layout=go.Layout(title="Gráfico de índice UV (Índice de UV)"))
-    figPPM = go.Figure(data=[tablaPPM], layout=go.Layout(title="Gráfico de concentración de CO2 (ppm)"))
+    figPPM = go.Figure(data=[tablaPPM], layout=go.Layout(title="Gráfico de calidad del aire (ppm)"))
     figLuxes = go.Figure(data=[tablaLuxes], layout=go.Layout(title="Gráfico de luxes (lux)"))
 
 
@@ -245,4 +262,8 @@ def graficos():
 
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True, host='192.168.1.40')
+    # Development
+    # app.run(port=8080, debug=True, host='192.168.1.40')
+    # Production
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=8080)
