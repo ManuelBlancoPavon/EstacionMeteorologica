@@ -1,7 +1,5 @@
-import os
 from flask import Flask, render_template, render_template_string, request, send_from_directory, url_for
 import mysql.connector
-import numpy as np
 from jinja2 import Environment
 import plotly.graph_objects as go
 import datetime
