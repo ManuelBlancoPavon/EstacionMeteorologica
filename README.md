@@ -34,6 +34,8 @@ Esta estación meteorológica sirve para medir la temperatura, humedad, presión
 - asyncio
 - adafruit_ltr390.mpy
 - adafruit_ticks.mpy
+- adafruit_datetime.mpy
+- adafruit_requests.mpy
 6. Descargue Thonny [aquí](https://thonny.org/).
 7. Abra Thonny y seleccione la Raspberry Pi Pico W como dispositivo.
 8. Copie la carpeta de tests a la Raspberry Pi Pico W.
@@ -41,22 +43,17 @@ Esta estación meteorológica sirve para medir la temperatura, humedad, presión
 10. Copie el archivo main.py y settings.json a la Raspberry Pi Pico W.
 11. Modifique el settings.json con los datos de su red wifi
 12. Ejecute el archivo main.py
-13. Y en su navegador vaya a la dirección ip 192.168.1.160/data (o la que tenga asignada) y vera como cada 15 segundos se actualizan los datos.
+13. Y en su navegador vaya a la dirección ip 192.168.1.160/data (o la que tenga asignada) y vera como cada 15 segundos o los que quiera se actualizan los datos.
+14. Cabe destacar que solo empezara a dar datos cuando los minutos acaben en 0 o 5 para que los datos cuando sean alamacenados queden más bonitas las fechas.
 ### Servidor
 #### Poniendo en marcha la base de datos
 1. Descargue e instale mariadb [aquí](https://mariadb.org/download/).
 2. Ejecute script.sql en la base de datos.
 #### Almacenando datos en la base de datos
-1. Instale los siguientes módulos de Python:
-- mysql-connector-python
-- requests
-- flask
-- Jninja2
-- numpy
-- matplotlib
-- Flask-Plots
+1. Instale los siguientes módulos de python con pip install -r requirements.txt.
 2. Descargue el archivo store.py y ejecútelo configurando cada cuánto tiempo quiere almacenar los datos.
 3. Lo tendrá que hacer que se ejecute en segundo plano.
+4. Ten en cuenta que este programa se adapta automaticamente a la cantidad de tiempo que hayas puesta en la configuración de la Raspberry PI Pico W.
 #### Página Web
 1. Descargue la carpeta app y ejecute main.py.
 2. Recuerde que en host tiene que poner la ip de su ordenador.
