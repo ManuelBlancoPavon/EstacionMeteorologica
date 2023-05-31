@@ -68,11 +68,11 @@ volts = {0.4: 0,
 # MQ-135
 MQ135 = analogio.AnalogIn(board.GP27)
 # BME280
-#i2c = busio.I2C(board.GP1, board.GP0)  # SCL, SDA
-#bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)
+i2c = busio.I2C(board.GP1, board.GP0)  # SCL, SDA
+bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c)
 # LTR390
-#i2c = busio.I2C(board.GP3, board.GP2)  # SCL, SDA
-#ltr390 = adafruit_ltr390.LTR390(i2c)
+i2c = busio.I2C(board.GP3, board.GP2)  # SCL, SDA
+ltr390 = adafruit_ltr390.LTR390(i2c)
 # Veleta
 analog_value = analogio.AnalogIn(board.GP26)
 
@@ -236,10 +236,3 @@ while True:
     
     # Si minutos % 5 no es igual a 0, esperar y volver a intentarlo
     time.sleep(5)
-
-
-
-
-
-
-
