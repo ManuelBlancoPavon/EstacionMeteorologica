@@ -58,7 +58,15 @@ Esta estación meteorológica sirve para medir la temperatura, humedad, presión
 1. Descargue la carpeta app y ejecute main.py.
 2. Recuerde que en host tiene que poner la ip de su ordenador.
 ![Web](./Imagenes/Web.png)
-
+### Creación de los procesos en segundo plano
+Esto solo se aplica para linux (yo lo he hecho en Ubuntu 22.04 aunque ddeberia funcionanar para cualquier linux).
+1. Descarge los archivos archivos tiempo_store.service y tiempo_web.service y pongalos en /etc/systemd/system.
+2. Cambie en los dos archivos las rutas de donde esta la carpeta y donde esta el archivo que se tiene que ejecutar en los campos WorkingDirectory y ExecStart, no se olvide de poner su nombre de usuario en el campo User.
+3. Ejecute sudo systemctl daemon-reload.
+4. Ejecute sudo systemctl start tiempo_store.service y sudo systemctl start tiempo_web.service para iniciarlos.
+5. Ejecute sudo systemctl enable tiempo_store.service y sudo systemctl enable tiempo_web.service para que se inicien al encender el ordenador.
+6. Ejecute sudo systemctl status tiempo_store.service y sudo systemctl status tiempo_web.service para comprobar que se estan ejecutando.
+7. Una cosa buena de este sistema esque si uno de los procesos da error se reiniciara automaticamente.
 ## Montaje
 1. Imprime una Stevenson screen para que los sensores no estén expuestos al sol y solo midan la temperatura del aire aunque os recomiendo que el sensor grid lo imprimáis un poco más pequeño para que quepa. Luego hacer un agujero en la parte de abajo para llevar los cables [Descargar](https://www.thingiverse.com/thing:1718334/files). Podéis poner los sensores en el sensor grid y os quedaría tal que así:
 ![SensorGrid](./Imagenes/SensorGrid.jpeg)

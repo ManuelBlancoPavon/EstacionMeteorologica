@@ -1,0 +1,13 @@
+[Unit]
+Description=tiempo_store
+After=network.target
+
+[Service]
+User=tuUsuario
+WorkingDirectory=ruta/EstacionMeteorologica/Programacion/Servidor/BaseDeDatos
+ExecStart=/usr/bin/python3 ruta/EstacionMeteorologica/Programacion/Servidor/BaseDeDatos/store.py
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=tiempo_web
+After=network.target
+
+[Service]
+User=colegio
+WorkingDirectory=/home/colegio/Estacion/EstacionMeteorologica/Programacion/Servidor/PaginaWeb/app
+ExecStart=/usr/bin/python3 /home/colegio/Estacion/EstacionMeteorologica/Programacion/Servidor/PaginaWeb/app/main.py
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+
