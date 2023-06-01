@@ -5,7 +5,7 @@ import datetime
 import time
 import mysql.connector
 
-url="http://192.168.1.40:5000"
+url="http://192.168.1.160/data"
 
 respuesta = requests.get('http://192.168.1.160/data')
 
@@ -22,7 +22,7 @@ def calcular_hash(data):
     md5_hash.update(data)
     return md5_hash.hexdigest()
 
-hashAnterior = False
+hashAnterior = None
 
 while True:
   response = requests.get(url)
@@ -64,4 +64,4 @@ while True:
           hashAnterior = hashActual
       else:
           print("Los datos no han cambiado")
-  time.sleep(20)
+  time.sleep(30)

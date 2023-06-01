@@ -44,7 +44,7 @@ agua = 0
 # Anemometro
 vueltas = 0
 radio = 9.0
-intervalo = 15
+intervalo = 900
 ajuste = 1.18
 limite = 1000
 # Veleta
@@ -203,13 +203,13 @@ def cpu_information_handler(request: HTTPRequest):
     data = {
         "velocidad": round(velocidad, 2),
         "temperatura": round(temperatura, 2),
-        "Humedad": round(humedad, 2),
-        "Presion": round(presion, 2),
-        "Precipitaciones": round(precipitaciones, 2),
-        "UVI": round(uvi, 2),
-        "Luxes": round(lux, 2),
-        "Direccion": direccion,
-        "PPM": round(ppm, 2)
+        "humedad": round(humedad, 2),
+        "presion": round(presion, 2),
+        "precipitaciones": round(precipitaciones, 2),
+        "uvi": round(uvi, 2),
+        "luxes": round(lux, 2),
+        "direccion": direccion,
+        "ppm": round(ppm, 2)
     }
 
     with HTTPResponse(request, content_type=MIMEType.TYPE_JSON) as response:
