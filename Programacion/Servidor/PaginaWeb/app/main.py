@@ -15,11 +15,11 @@ mydb = mysql.connector.connect(
 # routes
 @app.route('/', methods=['GET', 'POST'])
 def bar():
-    diaDefault = (2023, 5, 15)
-    diaBuscar = datetime.date(*diaDefault)
+    #diaDefault = (2023, 5, 15)
+    #diaBuscar = datetime.date(*diaDefault)
     horaInicio = "00:00:00"
     horaFin = "23:59:59"
-    # diaBuscar = datetime.date.today()
+    diaBuscar = datetime.date.today()
     if request.method == 'POST':
         diaIntroducido = request.form['dia']
         mesIntroducido = request.form['mes']
