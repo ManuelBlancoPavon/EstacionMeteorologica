@@ -40,7 +40,7 @@ def bar():
                 horaFin = horay + ":59"
             except ValueError:
                 return("Formato de hora fin incorrecto. Debe ser en formato HH:MM.")
-        
+
         try:
             diaOBJ = datetime.datetime.strptime(diaIntroducido, '%d')
             diaSaneado = diaOBJ.strftime('%d')
@@ -52,14 +52,14 @@ def bar():
             anoSaneado = anoOBJ.strftime('%Y')
             anoProcesar = int(anoSaneado)
             diaBuscar = datetime.date(anoProcesar, mesProcesar, diaProcesar)
-            
+
         except ValueError:
             return 'La fecha introducida no es válida.'
-        
+
     mycursor = mydb.cursor()
     consulta = """
-    SELECT fecha, temperatura, humedad, presion, precipitaciones, velocidad, direccion, uvi, lux, ppm 
-    FROM mediciones 
+    SELECT fecha, temperatura, humedad, presion, precipitaciones, velocidad, direccion, uvi, lux, ppm
+    FROM mediciones
     WHERE DATE(fecha) = %s
     AND TIME(`fecha`) >= %s
     AND TIME(`fecha`) <= %s
@@ -91,34 +91,48 @@ def bar():
         uv.append(i[7])
         lux.append(i[8])
         ppm.append(i[9])
-    
+
     # Quitarle los segundos a la fecha
     fechaFormateada = []
     for i in fecha:
         fechaFormateada.append(i.strftime('%d-%m-%Y %H:%M'))
-    
+
     # Quitarle los segundos a horaInicio y horaFin
     horaInicio = horaInicio[:-3]
     horaFin = horaFin[:-3]
     diaBuscarFormateado = diaBuscar.strftime("%d-%m-%Y")
-    
+
     # Calcular maximos y minimos
-    tempMax = max(temperatura)
-    tempMin = min(temperatura)
-    humMax = max(humedad)
-    humMin = min(humedad)
-    presMax = max(presion)
-    presMin = min(presion)
-    velMax = max(velocidad)
-    velMin = min(velocidad)
-    velMedia = round(sum(velocidad)/len(velocidad), 2)
-    uvMax = max(uv)
-    uvMin = min(uv)
-    mmTotal = round(sum(precipitaciones), 2)
+    if temperatura:
+        tempMax = max(temperatura)
+        tempMin = min(temperatura)
+        humMax = max(humedad)
+        humMin = min(humedad)
+        presMax = max(presion)
+        presMin = min(presion)
+        velMax = max(velocidad)
+        velMin = min(velocidad)
+        velMedia = round(sum(velocidad)/len(velocidad), 2)
+        uvMax = max(uv)
+        uvMin = min(uv)
+        mmTotal = round(sum(precipitaciones), 2)
+    else:
+        tempMax = 0
+        tempMin = 0
+        humMax = 0
+        humMin = 0
+        presMax = 0
+        presMin = 0
+        valMax = 0
+        velMin = 0
+        velMedia = 0
+        uvMax = 0
+        uvMin = 0
+        mmTotal = 0
 
     env = Environment()
     env.globals.update(zip=zip)
-    return render_template("index.html", tempMax=tempMax, tempMin=tempMin, humMax=humMax, humMin=humMin, presMax=presMax,
+    return render_template("index.html", tempMax=tempMax, tempMin=tempMin, humMax=humMax, humMin=humMin, presMax=presMax, uvMax=uvMax, velMedia=velMedia,
                            presMin=presMin, mmTotal=mmTotal, temperaturas=temperatura,uvs=uv,luxes=lux,ppms=ppm,direcciones=direccion,
                            humedades=humedad, presiones=presion, precipitaciones=precipitaciones, velocidades=velocidad,fechas=fechaFormateada,
                            dia=diaBuscarFormateado,horax=horaInicio,horay=horaFin, zip=zip)
@@ -139,7 +153,7 @@ def graficos():
         diaMin = request.form['hastaDia']
         mesMin = request.form['hastaMes']
         anoMin = request.form['hastaAno']
-        
+
         try:
             diaOBJ = datetime.datetime.strptime(diaMax, '%d')
             diaSaneado = diaOBJ.strftime('%d')
@@ -168,14 +182,14 @@ def graficos():
             anoProcesar = int(anoSaneado)
 
             diaMin = datetime.date(anoProcesar, mesProcesar, diaProcesar)
-            
+
         except ValueError:
             return 'La fecha introducida no es válida.'
-        
+
     mycursor = mydb.cursor()
     consulta = """
-    SELECT fecha, temperatura, humedad, presion, precipitaciones, velocidad, direccion, uvi, lux, ppm 
-    FROM mediciones 
+    SELECT fecha, temperatura, humedad, presion, precipitaciones, velocidad, direccion, uvi, lux, ppm
+    FROM mediciones
     WHERE DATE(fecha) >= %s
     AND DATE(fecha) <= %s
     AND TIME(`fecha`) >= %s
@@ -208,12 +222,12 @@ def graficos():
         uv.append(i[7])
         lux.append(i[8])
         ppm.append(i[9])
-    
+
     # Quitarle los segundos a la fecha
     fechaFormateada = []
     for i in fecha:
         fechaFormateada.append(i.strftime('%d-%m-%Y %H:%M'))
-    
+
     # Quitarle los segundos a horaInicio y horaFin
     horaInicio = horaInicio[:-3]
     horaFin = horaFin[:-3]
