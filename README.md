@@ -15,7 +15,7 @@ Esta estación meteorológica sirve para medir la temperatura, humedad, presión
 - 1x BME280
 - 1x LTR390
 - 1x MQ-135
-- 1x [Kit de anemómetro, veleta y pluviometro.](https://www.argentdata.com/catalog/product_info.php?products_id=145)
+- 1x [Kit de anemómetro, veleta y pluviómetro.](https://www.argentdata.com/catalog/product_info.php?products_id=145)
 - 2x Cables STEMMA QT
 - 2x Conectores RJ11
 - 9x Conectores de tornillo de 2 pines
