@@ -21,7 +21,7 @@ Esta estación meteorológica sirve para medir la temperatura, humedad, presión
 - 9x Conectores de tornillo de 2 pines
 - 1x Resistencias de 2k ohm
 - 2x Resistencia de 4.7k ohm
-- 1x Prefboard
+- 1x Perforad
 
 ## Esquema de conexiones
 
@@ -57,13 +57,13 @@ Esta estación meteorológica sirve para medir la temperatura, humedad, presión
 11.Modifique el settings.json con los datos de su red wifi
 12.Ejecute el archivo main.py
 13.Y en su navegador vaya a la dirección ip 192.168.1.160/data (o la que tenga asignada) y vera como cada 15 segundos o los que quiera se actualizan los datos.
-14.Cabe destacar que solo empezara a dar datos cuando los minutos acaben en 0 o 5 para que los datos cuando sean alamacenados queden más bonitas las fechas.
+14.Cabe destacar que solo empezara a dar datos cuando los minutos acaben en 0 o 5 para que los datos cuando sean almacenados queden más bonitas las fechas.
 
 ### Servidor
 
 #### Poniendo en marcha la base de datos
 
-1. Descargue e instale mariadb [aquí](https://mariadb.org/download/).
+1. Descargue e instale MariaDB [aquí](https://mariadb.org/download/).
 2. Ejecute script.sql en la base de datos.
 
 #### Almacenando datos en la base de datos
@@ -71,7 +71,7 @@ Esta estación meteorológica sirve para medir la temperatura, humedad, presión
 1. Instale los siguientes módulos de python con pip install -r requirements.txt.
 2. Descargue el archivo store.py y ejecútelo configurando cada cuánto tiempo quiere almacenar los datos.
 3. Lo tendrá que hacer que se ejecute en segundo plano.
-4. Ten en cuenta que este programa se adapta automaticamente a la cantidad de tiempo que hayas puesta en la configuración de la Raspberry PI Pico W.
+4. Ten en cuenta que este programa se adapta automáticamente a la cantidad de tiempo que hayas puesta en la configuración de la Raspberry PI Pico W.
 
 #### Página Web
 
@@ -81,15 +81,15 @@ Esta estación meteorológica sirve para medir la temperatura, humedad, presión
 
 ### Creación de los procesos en segundo plano
 
-Esto solo se aplica para linux (yo lo he hecho en Ubuntu 22.04 aunque ddeberia funcionanar para cualquier linux).
+Esto solo se aplica para Linux (yo lo he hecho en Ubuntu 22.04 aunque debería funcionar para cualquier Linux).
 
-1. Descarge los archivos archivos tiempo_store.service y tiempo_web.service y pongalos en /etc/systemd/system.
+1. Descargue los archivos archivos tiempo_store.service y tiempo_web.service y ponga los en /etc/systemd/system.
 2. Cambie en los dos archivos las rutas de donde esta la carpeta y donde esta el archivo que se tiene que ejecutar en los campos WorkingDirectory y ExecStart, no se olvide de poner su nombre de usuario en el campo User.
 3. Ejecute sudo systemctl daemon-reload.
 4. Ejecute sudo systemctl start tiempo_store.service y sudo systemctl start tiempo_web.service para iniciarlos.
 5. Ejecute sudo systemctl enable tiempo_store.service y sudo systemctl enable tiempo_web.service para que se inicien al encender el ordenador.
-6. Ejecute sudo systemctl status tiempo_store.service y sudo systemctl status tiempo_web.service para comprobar que se estan ejecutando.
-7. Una cosa buena de este sistema esque si uno de los procesos da error se reiniciara automaticamente.
+6. Ejecute sudo systemctl status tiempo_store.service y sudo systemctl status tiempo_web.service para comprobar que se están ejecutando.
+7. Una cosa buena de este sistema es que si uno de los procesos da error se reiniciara automáticamente.
 
 ## Montaje
 
