@@ -19,6 +19,7 @@ import adafruit_datetime
 import json
 import socketpool
 import adafruit_requests
+import microcontroller
 
 ## Variables
 # Wifi
@@ -30,9 +31,17 @@ wifi.radio.set_ipv4_address(ipv4=ipv4,netmask=netmask,gateway=gateway)
 ssid = os.getenv("WIFI_SSID")
 password = os.getenv("WIFI_PASSWORD")
 
-print("Connecting to", ssid)
-wifi.radio.connect(ssid, password)
-print("Connected to", ssid)
+while True:
+    try:
+        print("Connecting to", ssid)
+        wifi.radio.connect(ssid, password)
+        print("Connected to", ssid)
+        ipv4 = ipaddress.ip_address("8.8.8.8")
+        print("Ping google.com: %f ms" % (wifi.radio.ping(ipv4)*1000))
+        break
+    except Exception as e:
+        print("Error:\n", str(e))
+        time.sleep(40)
 
 pool = socketpool.SocketPool(wifi.radio)
 server = HTTPServer(pool, "/static")
@@ -139,9 +148,67 @@ lux = 0
 
 async def principal():
     while True:
-        global vueltas
-        global agua
-        global intervalo
+        try:
+            global vueltas
+            global agua
+            global intervalo
+            global velocidad
+            global ppm
+            global direccion
+            global temperatura
+            global humedad
+            global presion
+            global precipitaciones
+            global uvi
+            global lux
+            agua = 0
+            vueltas = 0
+            await asyncio.sleep(intervalo)
+            ppm = calcularppm()
+            temperatura = bme280.temperature
+            humedad = bme280.relative_humidity
+            presion = bme280.pressure
+            precipitaciones = calcularMM()
+            uvi = ltr390.uvi
+            lux = ltr390.lux
+            velocidad = calcularVelocidad(intervalo)
+            voltios = round((analog_value.value * 3.33333) / 65535, 1)
+            print("Velocidad del viento", velocidad, "km/h")
+            print("Temperatura: %0.1f C" % bme280.temperature)
+            print("Humedad: %0.1f %%" % bme280.relative_humidity)
+            print("Presion: %0.1f hPa" % bme280.pressure)
+            print("Precipitaciones: ", calcularMM(), "mm")
+            print("Indice de radiacion UV:", ltr390.uvi)
+            print("Luxes: ", ltr390.lux, "iluminancia")
+            print("Concentracion de gases: %.2f ppm" % ppm)
+            if not voltios in volts:
+                direccion = -1
+                print("Direccion del viento desconocida")
+            else:
+                direccion = str(volts[voltios])
+                print("Direccion del viento: " + str(volts[voltios]))
+                
+        except Exception as e:
+            print("Error en principal")
+            time.sleep(5)
+            microcontroller.reset()
+
+async def updateServer():
+    timer = 0
+    while True:
+        try:
+            print(timer)
+            await asyncio.sleep(0.5)
+            timer += 0.5
+            server.poll()
+        except Exception as e:
+            print("Error en enviando los datos")
+            time.sleep(5)
+            microcontroller.reset()
+        
+@server.route("/data") 
+def cpu_information_handler(request: HTTPRequest):
+    try:
         global velocidad
         global ppm
         global direccion
@@ -151,77 +218,44 @@ async def principal():
         global precipitaciones
         global uvi
         global lux
-        agua = 0
-        vueltas = 0
-        await asyncio.sleep(intervalo)
-        ppm = calcularppm()
-        temperatura = bme280.temperature
-        humedad = bme280.relative_humidity
-        presion = bme280.pressure
-        precipitaciones = calcularMM()
-        uvi = ltr390.uvi
-        lux = ltr390.lux
-        velocidad = calcularVelocidad(intervalo)
-        voltios = round((analog_value.value * 3.33333) / 65535, 1)
-        print("Velocidad del viento", velocidad, "km/h")
-        print("Temperatura: %0.1f C" % bme280.temperature)
-        print("Humedad: %0.1f %%" % bme280.relative_humidity)
-        print("Presion: %0.1f hPa" % bme280.pressure)
-        print("Precipitaciones: ", calcularMM(), "mm")
-        print("Indice de radiacion UV:", ltr390.uvi)
-        print("Luxes: ", ltr390.lux, "iluminancia")
-        print("Concentracion de gases: %.2f ppm" % ppm)
-        if not voltios in volts:
-            direccion = -1
-            print("Direccion del viento desconocida")
-        else:
-            direccion = str(volts[voltios])
-            print("Direccion del viento: " + str(volts[voltios]))
+        data = {
+            "velocidad": round(velocidad, 2),
+            "temperatura": round(temperatura, 2),
+            "humedad": round(humedad, 2),
+            "presion": round(presion, 2),
+            "precipitaciones": round(precipitaciones, 2),
+            "uvi": round(uvi, 2),
+            "luxes": round(lux, 2),
+            "direccion": direccion,
+            "ppm": round(ppm, 2)
+        }
 
-async def updateServer():
-    timer = 0
-    while True:
-        print(timer)
-        await asyncio.sleep(0.5)
-        timer += 0.5
-        server.poll()
-        
-@server.route("/data") 
-def cpu_information_handler(request: HTTPRequest):
-    """
-    Return the current CPU temperature, frequency, and voltage as JSON.
-    """
-    global velocidad
-    global ppm
-    global direccion
-    global temperatura
-    global humedad
-    global presion
-    global precipitaciones
-    global uvi
-    global lux
-    data = {
-        "velocidad": round(velocidad, 2),
-        "temperatura": round(temperatura, 2),
-        "humedad": round(humedad, 2),
-        "presion": round(presion, 2),
-        "precipitaciones": round(precipitaciones, 2),
-        "uvi": round(uvi, 2),
-        "luxes": round(lux, 2),
-        "direccion": direccion,
-        "ppm": round(ppm, 2)
-    }
-
-    with HTTPResponse(request, content_type=MIMEType.TYPE_JSON) as response:
-        response.send(json.dumps(data))
+        with HTTPResponse(request, content_type=MIMEType.TYPE_JSON) as response:
+            response.send(json.dumps(data))
+            
+    except Exception as e:
+        print("Error actualizando los datos")
+        time.sleep(5)
+        microcontroller.reset()
 
 async def main():
     interrupt_task = asyncio.create_task(catch_pin_transitions(board.GP22))
     interrupt_task2 = asyncio.create_task(catch_pin_transitions2(board.GP21))
     server_task = updateServer()
     print_task = asyncio.create_task(principal())
-    await asyncio.gather(interrupt_task, interrupt_task2, print_task, server_task)
+    check_internet = asyncio.create_task(comprobarInternet())
+    await asyncio.gather(interrupt_task, interrupt_task2, print_task, server_task, check_internet)
 
+async def comprobarInternet():
+    while True:
+        try:
+            await asyncio.sleep(300)
+            ipv4 = ipaddress.ip_address("8.8.8.8")
+            print("Ping google.com: %f ms" % (wifi.radio.ping(ipv4)*1000))
+        except Exception as e:
+            print("Se ha ido la conexion a internet")
+            time.sleep(5)
+            microcontroller.reset()
 
 while True:
     response = requests.get(url)
